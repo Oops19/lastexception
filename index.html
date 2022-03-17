@@ -1,0 +1,34 @@
+<html>
+	<head>
+		<title>Oops - Another Exception</title>
+	</head>
+	<body>
+		<p>Load Exception <input id='loadException' type='file' /></p>
+		<textarea id="exception" cols="200" rows="30" placeholder="    ...
+    Each 'File:' line is part of the stack trace and helpful to identify the issue.
+    File: ...
+    File: ...
+    File: ...
+
+The error message if one line below the last 'File:' line.
+
+Examples:
+ModuleNotFoundError: No module named 'foo.bar...' - The mod 'foo' is required. If it is installed then you may need to upgrade it. Or you may have duplicates or old copies of it, remove them.
+
+"></textarea>
+	</body>
+	<script>
+document.getElementById('loadException').addEventListener('change', loadException, false);
+function loadException(e) {
+	var file = e.target.files[0];
+	if (!file) {
+		return;
+	};
+	var reader = new FileReader();
+	reader.onload = function(e) {
+		document.getElementById('exception').value = e.target.result.replaceAll('><', '>\r\n<').replaceAll('&#13;&#10;', '\r\n').replaceAll('&lt;', '<').replaceAll('&gt;', '>');
+	};
+	reader.readAsText(file);
+};
+	</script>
+</html>
