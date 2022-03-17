@@ -1,23 +1,12 @@
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Oops - Another Exception</title>
 	</head>
 	<body>
-		<p>Load Exception <input id='loadException' type='file' /></p>
-		<textarea id="exception" cols="200" rows="30" placeholder="    ...
-    Each 'File:' line is part of the stack trace and helpful to identify the issue.
-    File: ...
-    File: ...
-    File: ...
-
-The error message is one line below the last 'File:' line.
-
-Examples:
-ModuleNotFoundError: No module named 'foo.bar...' - The mod 'foo' is required. If it is installed then you may need to upgrade it. Or you may have duplicates or old copies of it, remove them.
-
-"></textarea>
-	</body>
-	<script>
+		<p>Load Exception <input id='loadException' type='file' /></input></p>
+		<textarea id="exception" cols="200" rows="30"></textarea>
+		<script>
 document.getElementById('loadException').addEventListener('change', loadException, false);
 function loadException(e) {
 	var file = e.target.files[0];
@@ -30,5 +19,14 @@ function loadException(e) {
 	};
 	reader.readAsText(file);
 };
-	</script>
+
+document.getElementById('exception').addEventListener('input', formatException, false);
+document.getElementById('exception').addEventListener('change', formatException, false);
+function formatException() {
+	document.getElementById('exception').value = document.getElementById('exception').value.replaceAll('><', '>\r\n<').replaceAll('&#13;&#10;', '\r\n').replaceAll('&lt;', '<').replaceAll('&gt;', '>');
+};
+
+document.getElementById('exception').placeholder = "Load a exception file or paste the contents here.\r\n\r\n\t...\r\n\tEach 'File:' line is part of the stack trace and helpful to identify the issue.\r\n\tFile: ...\r\n\tFile: ...\r\n\tFile: ...\r\n\tFile: ...\r\n\r\nThe error message is one line below the last 'File:' line.\r\n\r\nExamples:\r\nModuleNotFoundError: No module named 'foo.bar...' - The mod 'foo' is required. If it is installed then you may need to upgrade it. Or you may have duplicates or old copies of it, remove them.";
+		</script>
+	</body>
 </html>
