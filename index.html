@@ -29,7 +29,7 @@ function loadException(e) {
 document.getElementById('exception').addEventListener('input', formatException, false);
 document.getElementById('exception').addEventListener('change', formatException, false);
 function formatException() {
-	document.getElementById('exception').value = document.getElementById('exception').value.replaceAll('><', '>\r\n<').replaceAll('&#13;&#10;', '\r\n').replaceAll('&lt;', '<').replaceAll('&gt;', '>');
+	document.getElementById('exception').value = document.getElementById('exception').value.replaceAll('><', '>\r\n<').replaceAll('&#13;', '\r').replaceAll('&#10;', '\n').replaceAll('&lt;', '<').replaceAll('&gt;', '>');
 };
 
 document.getElementById('exception').placeholder = "Load a 'lastexception.txt' file or paste the 'lastexception.txt' file contents here.\r\n\r\n\t...\r\n\tEach 'File:' line is part of the stack trace and helpful to identify the issue.\r\n\tFile: ...\r\n\tFile: ...\r\n\tFile: ...\r\n\tFile: ...\r\n\r\nThe error message is one line below the last 'File:' line.\r\n\r\nExamples:\r\nModuleNotFoundError: No module named 'foo.bar...' - The mod 'foo' is required. If it is installed then you may need to upgrade it. Or you may have duplicates or old copies of it, remove them.\r\n\r\n\r\nPrivacy: The 'uploaded' or 'pasteed' data is handled locally on the client. No data is uploaded or processed on a server. Paranoid users save the page locally and inspect the source code.";
